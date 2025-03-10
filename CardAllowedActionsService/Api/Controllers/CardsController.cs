@@ -33,9 +33,12 @@ public class CardsController : ControllerBase
         return
             Ok (new CardAllowedActionsResponse
             {
-                CardNumber = cardDetails?.CardNumber!,
+                CardNumber = cardDetails!.CardNumber,
                 UserId = userId,
-                AllowedActions = allowedActions
+                AllowedActions = allowedActions,
+                CardStatus = cardDetails!.CardStatus.ToString(),
+                CardType = cardDetails!.CardType.ToString(),
+                IsPinSet = cardDetails!.IsPinSet
             });
     }
 }
