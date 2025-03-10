@@ -26,4 +26,4 @@ jobs:
     - name: Restore test dependencies
       run: dotnet restore CardAllowedActionsTests/CardAllowedActionsTests.csproj
     - name: Test
-      run: dotnet test CardAllowedActionsTests/CardAllowedActionsTests.csproj --configuration Release --no-build --verbosity normal
+      run: dotnet test CardAllowedActionsTests/CardAllowedActionsTests.csproj --configuration Release --verbosity normal
