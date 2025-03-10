@@ -1,0 +1,6 @@
+@CardAllowedActionsService_HostAddress = http://localhost:5232
+
+GET {{CardAllowedActionsService_HostAddress}}/api/Cards/{userId}/{cardNumber}
+Accept: application/json
+
+###
