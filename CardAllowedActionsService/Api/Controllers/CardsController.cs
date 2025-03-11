@@ -12,10 +12,10 @@ public class CardsController : ControllerBase
     ICardService _cardService;
     IAllowedActionsResolver _allowedActionsResolver;
 
-    public CardsController(ICardService cardService, IAllowedActionsResolver allowedActionsResolvers)
+    public CardsController(ICardService cardService, IAllowedActionsResolver allowedActionsResolver)
     {
         _cardService = cardService;
-        _allowedActionsResolver = allowedActionsResolvers;
+        _allowedActionsResolver = allowedActionsResolver;
     }
 
     [HttpGet("{userId}/{cardNumber}",Name = "GetAllowedActions")]
@@ -35,7 +35,7 @@ public class CardsController : ControllerBase
             {
                 CardNumber = cardDetails!.CardNumber,
                 UserId = userId,
-                AllowedActions = allowedActions,
+                AllowedActions = allowedActions.Select(aa => aa.ToString()),
                 CardStatus = cardDetails!.CardStatus.ToString(),
                 CardType = cardDetails!.CardType.ToString(),
                 IsPinSet = cardDetails!.IsPinSet

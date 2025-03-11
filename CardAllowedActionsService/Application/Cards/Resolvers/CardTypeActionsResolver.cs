@@ -3,46 +3,46 @@ using CardAllowedActionsService.Application.Cards.Models;
 
 namespace CardAllowedActionsService.Application.Cards.Resolvers;
 
-public class CardTypeActionsResolver : IAllowedActionsResolver
+public class CardTypeActionsResolver : IPartialAllowedActionsResolver
 {
-    public IEnumerable<CardAction> Resolve(CardDetails card)
+    public IEnumerable<Models.CardAction> Resolve(CardDetails card)
     {
-        var allowedActions = new List<CardAction>();
+        var allowedActions = new List<Models.CardAction>();
         switch (card.CardType)
         {
             case CardType.Prepaid:
             case CardType.Debit:
-                allowedActions.AddRange([
-                    new CardAction() { Name = "ACTION1" },
-                    new CardAction() { Name = "ACTION2" },
-                    new CardAction() { Name = "ACTION3" },
-                    new CardAction() { Name = "ACTION4" },
-                    new CardAction() { Name = "ACTION6" },
-                    new CardAction() { Name = "ACTION7" },
-                    new CardAction() { Name = "ACTION8" },
-                    new CardAction() { Name = "ACTION9" },
-                    new CardAction() { Name = "ACTION10" },
-                    new CardAction() { Name = "ACTION11" },
-                    new CardAction() { Name = "ACTION12" },
-                    new CardAction() { Name = "ACTION13" }
-                    ]);
+                allowedActions.AddRangeOfActionNames([
+                    ActionName.ACTION1,
+                    ActionName.ACTION2,
+                    ActionName.ACTION3,
+                    ActionName.ACTION4,
+                    ActionName.ACTION6,
+                    ActionName.ACTION7,
+                    ActionName.ACTION8,
+                    ActionName.ACTION9,
+                    ActionName.ACTION10,
+                    ActionName.ACTION11,
+                    ActionName.ACTION12,
+                    ActionName.ACTION13
+                ]);
                 break;
             case CardType.Credit:
-                allowedActions.AddRange([
-                    new CardAction() { Name = "ACTION1" },
-                    new CardAction() { Name = "ACTION2" },
-                    new CardAction() { Name = "ACTION3" },
-                    new CardAction() { Name = "ACTION4" },
-                    new CardAction() { Name = "ACTION5" },
-                    new CardAction() { Name = "ACTION6" },
-                    new CardAction() { Name = "ACTION7" },
-                    new CardAction() { Name = "ACTION8" },
-                    new CardAction() { Name = "ACTION9" },
-                    new CardAction() { Name = "ACTION10" },
-                    new CardAction() { Name = "ACTION11" },
-                    new CardAction() { Name = "ACTION12" },
-                    new CardAction() { Name = "ACTION13" }
-                    ]);
+                allowedActions.AddRangeOfActionNames([
+                    ActionName.ACTION1,
+                    ActionName.ACTION2,
+                    ActionName.ACTION3,
+                    ActionName.ACTION4,
+                    ActionName.ACTION5,
+                    ActionName.ACTION6,
+                    ActionName.ACTION7,
+                    ActionName.ACTION8,
+                    ActionName.ACTION9,
+                    ActionName.ACTION10,
+                    ActionName.ACTION11,
+                    ActionName.ACTION12,
+                    ActionName.ACTION13
+                ]);
                 break;
         }
 

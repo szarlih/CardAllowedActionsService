@@ -4,7 +4,9 @@ using CardAllowedActionsService.Application.Cards.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddScoped<ICardService, CardService>();
-builder.Services.AddScoped<IAllowedActionsResolver, CompositeAllowedActionsResolver>();
+builder.Services.AddScoped<IPartialAllowedActionsResolver, CardStatusActionsResolver>();
+builder.Services.AddScoped<IPartialAllowedActionsResolver, CardTypeActionsResolver>();
+builder.Services.AddScoped<IAllowedActionsResolver, AllAllowedActionsResolver>();
 
 builder.Services.AddControllers();
 
