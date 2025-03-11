@@ -19,9 +19,11 @@ The **Cards Allowed Actions Service** is a microservice built using **C# and .NE
   - `ACTION7` *(if PIN is set)*, `ACTION8, ACTION9`.
  
 ## Api documentation
+
 There is Swagger UI configured in developent mode
  
 ## Endpoint
+
 GET /api/cards/{userId}/{cardNumber}
 
 ### Example query params

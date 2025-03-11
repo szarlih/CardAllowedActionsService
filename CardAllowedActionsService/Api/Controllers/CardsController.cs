@@ -5,6 +5,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CardAllowedActionsService.Api.Controllers;
 
+/// <summary>
+/// Controller for card actions
+/// </summary>
 [ApiController]
 [Route("api/[controller]")]
 public class CardsController : ControllerBase
@@ -18,6 +21,12 @@ public class CardsController : ControllerBase
         _allowedActionsResolver = allowedActionsResolver;
     }
 
+    /// <summary>
+    /// Get allowed actions for a user card
+    /// </summary>
+    /// <param name="userId">User idendificator (in format 'UserX', X in [1...3])</param>
+    /// <param name="cardNumber">Card number (in format 'CardXY', X in [1...3] - same as user, Y in [1...3])</param>
+    /// <returns></returns>
     [HttpGet("{userId}/{cardNumber}",Name = "GetAllowedActions")]
     public async Task<ActionResult<CardAllowedActionsResponse>> GetAllowedActionsResponses(string userId, string cardNumber)
     {
@@ -28,7 +37,9 @@ public class CardsController : ControllerBase
             return NotFound($"No card found for UserId: {userId}, CardNumber: {cardNumber}");
         }
 
-        var allowedActions = _allowedActionsResolver.Resolve(cardDetails).Select(a => a.Name);
+        var allowedActions = _allowedActionsResolver
+                                .Resolve(cardDetails)
+                                .Select(a => a.Name);
 
         return
             Ok (new CardAllowedActionsResponse
