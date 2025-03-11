@@ -7,31 +7,40 @@ namespace CardAllowedActionsTests;
 
 public class CardAllowedActionsResolversTests
 {
+    private static IEnumerable<IPartialAllowedActionsResolver> GetResolvers()
+    {
+        return new List<IPartialAllowedActionsResolver>
+        {
+            new CardTypeActionsResolver(),
+            new CardStatusActionsResolver()
+        };
+    }
+
     [Theory]
     [InlineData(CardType.Prepaid)]
     [InlineData(CardType.Debit)]
     [InlineData(CardType.Credit)]
     public void Resolve_WhenChecksOnlyCardType(CardType type)
     {
-        var expectedActions = new List<CardAction>
-        {
-            new CardAction() { Name = "ACTION1" },
-            new CardAction() { Name = "ACTION2" },
-            new CardAction() { Name = "ACTION3" },
-            new CardAction() { Name = "ACTION4" },
-            new CardAction() { Name = "ACTION6" },
-            new CardAction() { Name = "ACTION7" },
-            new CardAction() { Name = "ACTION8" },
-            new CardAction() { Name = "ACTION9" },
-            new CardAction() { Name = "ACTION10" },
-            new CardAction() { Name = "ACTION11" },
-            new CardAction() { Name = "ACTION12" },
-            new CardAction() { Name = "ACTION13" }
-        };
+        var expectedActions = new List<CardAction>();
+        expectedActions.AddRangeOfActionNames(new[] {
+            ActionName.ACTION1,
+            ActionName.ACTION2,
+            ActionName.ACTION3,
+            ActionName.ACTION4,
+            ActionName.ACTION6,
+            ActionName.ACTION7,
+            ActionName.ACTION8,
+            ActionName.ACTION9,
+            ActionName.ACTION10,
+            ActionName.ACTION11,
+            ActionName.ACTION12,
+            ActionName.ACTION13
+        });
 
         if (type == CardType.Credit)
         {
-            expectedActions.Insert(4, new CardAction() { Name = "ACTION5" });
+            expectedActions.Insert(4, new CardAction() { Name = ActionName.ACTION5 });
         }
 
         var card = new CardDetails
@@ -55,13 +64,13 @@ public class CardAllowedActionsResolversTests
     [InlineData(CardStatus.Restricted)]
     public void Resolve_WhenCardStatusExpiredOrRestrictedOrClosed(CardStatus type)
     {
-        var expectedActions = new List<CardAction>
-        {
-            new CardAction() { Name = "ACTION3" },
-            new CardAction() { Name = "ACTION4" },
-            new CardAction() { Name = "ACTION5" },
-            new CardAction() { Name = "ACTION9" },
-        };
+        var expectedActions = new List<CardAction>();
+        expectedActions.AddRangeOfActionNames(new[] {
+            ActionName.ACTION3,
+            ActionName.ACTION4,
+            ActionName.ACTION5,
+            ActionName.ACTION9
+        });
 
         var card = new CardDetails
         {
@@ -81,19 +90,19 @@ public class CardAllowedActionsResolversTests
     [Fact]
     public void Resolve_When_CardStatusIsInactive_And_CardTypeIsDebit_PinSet()
     {
-        var expectedActions = new List<CardAction>
-        {
-            new CardAction() { Name = "ACTION2" },
-            new CardAction() { Name = "ACTION3" },
-            new CardAction() { Name = "ACTION4" },
-            new CardAction() { Name = "ACTION6" },
-            new CardAction() { Name = "ACTION8" },
-            new CardAction() { Name = "ACTION9" },
-            new CardAction() { Name = "ACTION10" },
-            new CardAction() { Name = "ACTION11" },
-            new CardAction() { Name = "ACTION12" },
-            new CardAction() { Name = "ACTION13" }
-        };
+        var expectedActions = new List<CardAction>();
+        expectedActions.AddRangeOfActionNames(new[] {
+            ActionName.ACTION2,
+            ActionName.ACTION3,
+            ActionName.ACTION4,
+            ActionName.ACTION6,
+            ActionName.ACTION8,
+            ActionName.ACTION9,
+            ActionName.ACTION10,
+            ActionName.ACTION11,
+            ActionName.ACTION12,
+            ActionName.ACTION13
+        });
 
         var card = new CardDetails
         {
@@ -103,7 +112,7 @@ public class CardAllowedActionsResolversTests
             IsPinSet = true
         };
 
-        var resolver = new CompositeAllowedActionsResolver();
+        var resolver = new AllAllowedActionsResolver(GetResolvers());
 
         var actions = resolver.Resolve(card);
 
@@ -113,20 +122,20 @@ public class CardAllowedActionsResolversTests
     [Fact]
     public void Resolve_When_CardStatusIsInactive_And_CardTypeIsCredit_PinSet()
     {
-        var expectedActions = new List<CardAction>
-        {
-            new CardAction() { Name = "ACTION2" },
-            new CardAction() { Name = "ACTION3" },
-            new CardAction() { Name = "ACTION4" },
-            new CardAction() { Name = "ACTION5" },
-            new CardAction() { Name = "ACTION6" },
-            new CardAction() { Name = "ACTION8" },
-            new CardAction() { Name = "ACTION9" },
-            new CardAction() { Name = "ACTION10" },
-            new CardAction() { Name = "ACTION11" },
-            new CardAction() { Name = "ACTION12" },
-            new CardAction() { Name = "ACTION13" }
-        };
+        var expectedActions = new List<CardAction>();
+        expectedActions.AddRangeOfActionNames(new[] {
+            ActionName.ACTION2,
+            ActionName.ACTION3,
+            ActionName.ACTION4,
+            ActionName.ACTION5,
+            ActionName.ACTION6,
+            ActionName.ACTION8,
+            ActionName.ACTION9,
+            ActionName.ACTION10,
+            ActionName.ACTION11,
+            ActionName.ACTION12,
+            ActionName.ACTION13
+        });
 
         var card = new CardDetails
         {
@@ -136,7 +145,7 @@ public class CardAllowedActionsResolversTests
             IsPinSet = true
         };
 
-        var resolver = new CompositeAllowedActionsResolver();
+        var resolver = new AllAllowedActionsResolver(GetResolvers());
 
         var actions = resolver.Resolve(card);
 
@@ -146,12 +155,12 @@ public class CardAllowedActionsResolversTests
     [Fact]
     public void Resolve_When_CardStatusIsRestricted_And_CardTypeIsPrepaid()
     {
-        var expectedActions = new List<CardAction>
-        {
-            new CardAction() { Name = "ACTION3" },
-            new CardAction() { Name = "ACTION4" },
-            new CardAction() { Name = "ACTION9" },
-        };
+        var expectedActions = new List<CardAction>();
+        expectedActions.AddRangeOfActionNames(new[] {
+            ActionName.ACTION3,
+            ActionName.ACTION4,
+            ActionName.ACTION9
+        });
 
         var card = new CardDetails
         {
@@ -161,7 +170,7 @@ public class CardAllowedActionsResolversTests
             IsPinSet = true
         };
 
-        var resolver = new CompositeAllowedActionsResolver();
+        var resolver = new AllAllowedActionsResolver(GetResolvers());
 
         var actions = resolver.Resolve(card);
 
@@ -171,19 +180,19 @@ public class CardAllowedActionsResolversTests
     [Fact]
     public void Resolve_When_CardStatusIsActive_And_CardTypeIsDebit_NotPinSet()
     {
-        var expectedActions = new List<CardAction>
-        {
-            new CardAction() { Name = "ACTION1" },
-            new CardAction() { Name = "ACTION3" },
-            new CardAction() { Name = "ACTION4" },
-            new CardAction() { Name = "ACTION7" },
-            new CardAction() { Name = "ACTION8" },
-            new CardAction() { Name = "ACTION9" },
-            new CardAction() { Name = "ACTION10" },
-            new CardAction() { Name = "ACTION11" },
-            new CardAction() { Name = "ACTION12" },
-            new CardAction() { Name = "ACTION13" }
-        };
+        var expectedActions = new List<CardAction>();
+        expectedActions.AddRangeOfActionNames(new[] { 
+            ActionName.ACTION1,
+            ActionName.ACTION3,
+            ActionName.ACTION4,
+            ActionName.ACTION7,
+            ActionName.ACTION8,
+            ActionName.ACTION9,
+            ActionName.ACTION10,
+            ActionName.ACTION11,
+            ActionName.ACTION12,
+            ActionName.ACTION13
+        });
 
         var card = new CardDetails
         {
@@ -193,7 +202,7 @@ public class CardAllowedActionsResolversTests
             IsPinSet = false
         };
 
-        var resolver = new CompositeAllowedActionsResolver();
+        var resolver = new AllAllowedActionsResolver(GetResolvers());
 
         var actions = resolver.Resolve(card);
 
@@ -203,17 +212,18 @@ public class CardAllowedActionsResolversTests
     [Fact]
     public void Resolve_When_CardStatusIsOrdered_And_CardTypeIsDebit_NotPinSet()
     {
-        var expectedActions = new List<CardAction>
+        var expectedActions = new List<CardAction>();
+        expectedActions.AddRangeOfActionNames(new[]
         {
-            new CardAction() { Name = "ACTION3" },
-            new CardAction() { Name = "ACTION4" },
-            new CardAction() { Name = "ACTION7" },
-            new CardAction() { Name = "ACTION8" },
-            new CardAction() { Name = "ACTION9" },
-            new CardAction() { Name = "ACTION10" },
-            new CardAction() { Name = "ACTION12" },
-            new CardAction() { Name = "ACTION13" }
-        };
+            ActionName.ACTION3,
+            ActionName.ACTION4,
+            ActionName.ACTION7,
+            ActionName.ACTION8,
+            ActionName.ACTION9,
+            ActionName.ACTION10,
+            ActionName.ACTION12,
+            ActionName.ACTION13
+        });
 
         var card = new CardDetails
         {
@@ -223,7 +233,40 @@ public class CardAllowedActionsResolversTests
             IsPinSet = false
         };
 
-        var resolver = new CompositeAllowedActionsResolver();
+        var resolver = new AllAllowedActionsResolver(GetResolvers());
+
+        var actions = resolver.Resolve(card);
+
+        actions.ShouldBe(expectedActions);
+    }
+
+    [Fact]
+    public void Resolve_When_CardStatusIsInactive_And_CardTypeIsPrepaid_PinNotSet()
+    {
+        var expectedActions = new List<CardAction>();
+        expectedActions.AddRangeOfActionNames(new[]
+        {
+            ActionName.ACTION2,
+            ActionName.ACTION3,
+            ActionName.ACTION4,
+            ActionName.ACTION7,
+            ActionName.ACTION8,
+            ActionName.ACTION9,
+            ActionName.ACTION10,
+            ActionName.ACTION11,
+            ActionName.ACTION12,
+            ActionName.ACTION13
+        });
+
+        var card = new CardDetails
+        {
+            CardNumber = "1234567890123456",
+            CardType = CardType.Prepaid,
+            CardStatus = CardStatus.Inactive,
+            IsPinSet = false
+        };
+
+        var resolver = new AllAllowedActionsResolver(GetResolvers());
 
         var actions = resolver.Resolve(card);
 

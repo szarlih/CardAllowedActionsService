@@ -2,7 +2,7 @@
 
 namespace CardAllowedActionsService.Application.Cards.Resolvers;
 
-public interface IPartialAllowedActionsResolver
+public interface IAllowedActionsResolver
 {
     IEnumerable<CardAction> Resolve(CardDetails card);
 }

@@ -1,6 +1,8 @@
-﻿namespace CardAllowedActionsService.Application.Cards.Models;
+﻿using CardAllowedActionsService.Application.Cards.Enums;
+
+namespace CardAllowedActionsService.Application.Cards.Models;
 
 public record CardAction
 {
-    public required string Name { get; init; }
+    public required ActionName Name { get; init; }
 }

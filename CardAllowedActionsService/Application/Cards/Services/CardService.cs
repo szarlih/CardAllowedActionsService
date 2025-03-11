@@ -42,6 +42,7 @@ public class CardService : ICardService
                     cardIndex++;
                 }
             }
+
             var userId = $"User{i}";
             userCards.Add(userId, cards);
         }

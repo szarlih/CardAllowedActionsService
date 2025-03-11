@@ -3,111 +3,111 @@ using CardAllowedActionsService.Application.Cards.Models;
 
 namespace CardAllowedActionsService.Application.Cards.Resolvers;
 
-public class CardStatusActionsResolver : IAllowedActionsResolver
+public class CardStatusActionsResolver : IPartialAllowedActionsResolver
 {
-    public IEnumerable<CardAction> Resolve(CardDetails card)
+    public IEnumerable<Models.CardAction> Resolve(CardDetails card)
     {
-        var allowedActions = new List<CardAction>();
+        var allowedActions = new List<Models.CardAction>();
 
         switch (card.CardStatus)
         {
             case CardStatus.Ordered:
-                allowedActions.AddRange([
-                    new CardAction() { Name = "ACTION3" },
-                    new CardAction() { Name = "ACTION4" },
-                    new CardAction() { Name = "ACTION5" },
-                    new CardAction() { Name = "ACTION8" },
-                    new CardAction() { Name = "ACTION9" },
-                    new CardAction() { Name = "ACTION10" },
-                    new CardAction() { Name = "ACTION12" },
-                    new CardAction() { Name = "ACTION13" }
-                    ]);
+                allowedActions.AddRangeOfActionNames(new[] {
+                    ActionName.ACTION3,
+                    ActionName.ACTION4,
+                    ActionName.ACTION5,
+                    ActionName.ACTION8,
+                    ActionName.ACTION9,
+                    ActionName.ACTION10,
+                    ActionName.ACTION12,
+                    ActionName.ACTION13
+                });
 
                 if (card.IsPinSet)
                 {
-                    allowedActions.Add(new CardAction() { Name = "ACTION6" });
+                    allowedActions.AddActionName(ActionName.ACTION6);
                 }
                 else
                 {
-                    allowedActions.Add(new CardAction() { Name = "ACTION7" });
+                    allowedActions.AddActionName(ActionName.ACTION7);
                 }
 
                 break;
             case CardStatus.Inactive:
-                allowedActions.AddRange([
-                    new CardAction() { Name = "ACTION2" },
-                    new CardAction() { Name = "ACTION3" },
-                    new CardAction() { Name = "ACTION4" },
-                    new CardAction() { Name = "ACTION5" },
-                    new CardAction() { Name = "ACTION8" },
-                    new CardAction() { Name = "ACTION9" },
-                    new CardAction() { Name = "ACTION10" },
-                    new CardAction() { Name = "ACTION11" },
-                    new CardAction() { Name = "ACTION12" },
-                    new CardAction() { Name = "ACTION13" }
-                    ]);
+                allowedActions.AddRangeOfActionNames(new[] {
+                    ActionName.ACTION2,
+                    ActionName.ACTION3,
+                    ActionName.ACTION4,
+                    ActionName.ACTION5,
+                    ActionName.ACTION8,
+                    ActionName.ACTION9,
+                    ActionName.ACTION10,
+                    ActionName.ACTION11,
+                    ActionName.ACTION12,
+                    ActionName.ACTION13
+                });
 
                 if (card.IsPinSet)
                 {
-                    allowedActions.Add(new CardAction() { Name = "ACTION6" });
+                    allowedActions.AddActionName(ActionName.ACTION6);
                 }
                 else
                 {
-                    allowedActions.Add(new CardAction() { Name = "ACTION7" });
+                    allowedActions.AddActionName(ActionName.ACTION7);
                 }
 
                 break;
             case CardStatus.Active:
-                allowedActions.AddRange([
-                    new CardAction() { Name = "ACTION1" },
-                    new CardAction() { Name = "ACTION3" },
-                    new CardAction() { Name = "ACTION4" },
-                    new CardAction() { Name = "ACTION5" },
-                    new CardAction() { Name = "ACTION8" },
-                    new CardAction() { Name = "ACTION9" },
-                    new CardAction() { Name = "ACTION10" },
-                    new CardAction() { Name = "ACTION11" },
-                    new CardAction() { Name = "ACTION12" },
-                    new CardAction() { Name = "ACTION13" }
-                    ]);
+                allowedActions.AddRangeOfActionNames(new[] {
+                    ActionName.ACTION1,
+                    ActionName.ACTION3,
+                    ActionName.ACTION4,
+                    ActionName.ACTION5,
+                    ActionName.ACTION8,
+                    ActionName.ACTION9,
+                    ActionName.ACTION10,
+                    ActionName.ACTION11,
+                    ActionName.ACTION12,
+                    ActionName.ACTION13
+                });
 
                 if (card.IsPinSet)
                 {
-                    allowedActions.Add(new CardAction() { Name = "ACTION6" });
+                    allowedActions.AddActionName(ActionName.ACTION6);
                 }
                 else
                 {
-                    allowedActions.Add(new CardAction() { Name = "ACTION7" });
+                    allowedActions.AddActionName(ActionName.ACTION7);
                 }
 
                 break;
             case CardStatus.Blocked:
-                allowedActions.AddRange([
-                    new CardAction() { Name = "ACTION3" },
-                    new CardAction() { Name = "ACTION4" },
-                    new CardAction() { Name = "ACTION5" },
-                    new CardAction() { Name = "ACTION8" },
-                    new CardAction() { Name = "ACTION9" }
-                ]);
+                allowedActions.AddRangeOfActionNames(new[] {
+                    ActionName.ACTION3,
+                    ActionName.ACTION4,
+                    ActionName.ACTION5,
+                    ActionName.ACTION8,
+                    ActionName.ACTION9
+                });
 
                 if (card.IsPinSet)
                 {
-                    allowedActions.AddRange([
-                        new CardAction() { Name = "ACTION6" },
-                        new CardAction() { Name = "ACTION7" }
-                    ]);
+                    allowedActions.AddRangeOfActionNames(new[] {
+                        ActionName.ACTION6,
+                        ActionName.ACTION7
+                    });
                 }
 
                 break;      
             case CardStatus.Expired:
             case CardStatus.Closed:
             case CardStatus.Restricted:
-                allowedActions.AddRange([
-                    new CardAction() { Name = "ACTION3" },
-                    new CardAction() { Name = "ACTION4" },
-                    new CardAction() { Name = "ACTION5" },
-                    new CardAction() { Name = "ACTION9" }
-                ]);
+                allowedActions.AddRangeOfActionNames(new[] {
+                    ActionName.ACTION3,
+                    ActionName.ACTION4,
+                    ActionName.ACTION5,
+                    ActionName.ACTION9
+                });
                 break;
         }
 
