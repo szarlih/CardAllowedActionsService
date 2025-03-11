@@ -21,9 +21,9 @@ The **Cards Allowed Actions Service** is a microservice built using **C# and .NE
 ## Endpoint
 GET /api/cards/{userId}/{cardNumber}
 
-### Example data
-User1, Card11
-User2, Card21
+### Example query params
+- userId: User1, cardNumber: Card11
+- userId: User2, cardNumber: Card21
 
 ## Data Model
 
@@ -46,4 +46,8 @@ public enum CardStatus
     Closed 
 }
 
-public record CardDetails(string CardNumber, CardType CardType, CardStatus CardStatus, bool IsPinSet);
+public record CardDetails(
+  string CardNumber,
+  CardType CardType,
+  CardStatus CardStatus,
+  bool IsPinSet);
