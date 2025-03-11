@@ -12,7 +12,7 @@ public class CardTypeActionsResolver : IPartialAllowedActionsResolver
         {
             case CardType.Prepaid:
             case CardType.Debit:
-                allowedActions.AddRangeOfActionNames(new[] {
+                allowedActions.AddRangeOfActionNames([
                     ActionName.ACTION1,
                     ActionName.ACTION2,
                     ActionName.ACTION3,
@@ -25,10 +25,10 @@ public class CardTypeActionsResolver : IPartialAllowedActionsResolver
                     ActionName.ACTION11,
                     ActionName.ACTION12,
                     ActionName.ACTION13
-                });
+                ]);
                 break;
             case CardType.Credit:
-                allowedActions.AddRangeOfActionNames(new[] {
+                allowedActions.AddRangeOfActionNames([
                     ActionName.ACTION1,
                     ActionName.ACTION2,
                     ActionName.ACTION3,
@@ -42,7 +42,7 @@ public class CardTypeActionsResolver : IPartialAllowedActionsResolver
                     ActionName.ACTION11,
                     ActionName.ACTION12,
                     ActionName.ACTION13
-                });
+                ]);
                 break;
         }
 

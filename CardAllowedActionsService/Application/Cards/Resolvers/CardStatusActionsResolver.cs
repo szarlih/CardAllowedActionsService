@@ -12,7 +12,7 @@ public class CardStatusActionsResolver : IPartialAllowedActionsResolver
         switch (card.CardStatus)
         {
             case CardStatus.Ordered:
-                allowedActions.AddRangeOfActionNames(new[] {
+                allowedActions.AddRangeOfActionNames([
                     ActionName.ACTION3,
                     ActionName.ACTION4,
                     ActionName.ACTION5,
@@ -21,7 +21,7 @@ public class CardStatusActionsResolver : IPartialAllowedActionsResolver
                     ActionName.ACTION10,
                     ActionName.ACTION12,
                     ActionName.ACTION13
-                });
+                ]);
 
                 if (card.IsPinSet)
                 {
@@ -34,7 +34,7 @@ public class CardStatusActionsResolver : IPartialAllowedActionsResolver
 
                 break;
             case CardStatus.Inactive:
-                allowedActions.AddRangeOfActionNames(new[] {
+                allowedActions.AddRangeOfActionNames([
                     ActionName.ACTION2,
                     ActionName.ACTION3,
                     ActionName.ACTION4,
@@ -45,7 +45,7 @@ public class CardStatusActionsResolver : IPartialAllowedActionsResolver
                     ActionName.ACTION11,
                     ActionName.ACTION12,
                     ActionName.ACTION13
-                });
+                ]);
 
                 if (card.IsPinSet)
                 {
@@ -58,7 +58,7 @@ public class CardStatusActionsResolver : IPartialAllowedActionsResolver
 
                 break;
             case CardStatus.Active:
-                allowedActions.AddRangeOfActionNames(new[] {
+                allowedActions.AddRangeOfActionNames([
                     ActionName.ACTION1,
                     ActionName.ACTION3,
                     ActionName.ACTION4,
@@ -69,7 +69,7 @@ public class CardStatusActionsResolver : IPartialAllowedActionsResolver
                     ActionName.ACTION11,
                     ActionName.ACTION12,
                     ActionName.ACTION13
-                });
+                ]);
 
                 if (card.IsPinSet)
                 {
@@ -82,32 +82,32 @@ public class CardStatusActionsResolver : IPartialAllowedActionsResolver
 
                 break;
             case CardStatus.Blocked:
-                allowedActions.AddRangeOfActionNames(new[] {
+                allowedActions.AddRangeOfActionNames([
                     ActionName.ACTION3,
                     ActionName.ACTION4,
                     ActionName.ACTION5,
                     ActionName.ACTION8,
                     ActionName.ACTION9
-                });
+                ]);
 
                 if (card.IsPinSet)
                 {
-                    allowedActions.AddRangeOfActionNames(new[] {
+                    allowedActions.AddRangeOfActionNames([
                         ActionName.ACTION6,
                         ActionName.ACTION7
-                    });
+                    ]);
                 }
 
                 break;      
             case CardStatus.Expired:
             case CardStatus.Closed:
             case CardStatus.Restricted:
-                allowedActions.AddRangeOfActionNames(new[] {
+                allowedActions.AddRangeOfActionNames([
                     ActionName.ACTION3,
                     ActionName.ACTION4,
                     ActionName.ACTION5,
                     ActionName.ACTION9
-                });
+                ]);
                 break;
         }
 
